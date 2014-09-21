@@ -1,8 +1,7 @@
 express = require('express')
-serveStatic = require("serve-static")
 fs = require("fs")
 app = express()
-c=console;c.l=c.log
+c= console;c.l= c.log
 
 
 app.get '/images', (req, res)->
@@ -14,6 +13,5 @@ app.get '/images', (req, res)->
 
 app.use express.static __dirname + '/app'
 
-  
 
 app.listen 9000
