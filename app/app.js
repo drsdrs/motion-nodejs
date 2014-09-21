@@ -1,19 +1,30 @@
 
-var images, pos, imgEl, intervalId;
+var images, pos, imgEl, intervalId, startAt, startAtEl, playtStopEl, play= true;
 
 window.onload = function(){
   images = [];
   pos = 0;
   imgEl = document.getElementById("imgVideo");
-  spdSlider = document.getElementById("spdSlider");
+  spdSliderEl = document.getElementById("spdSlider");
+  startAtEl = document.getElementById("startAt");
+  playStopEl = document.getElementById("playStop");
 
   loadImgData(5000);
-  startAnimation(1120);
+  startAnimation(spdSliderEl.value);
 
-  spdSlider.addEventListener("change", function(e){
-    startAnimation(e.target.value);
+  spdSliderEl.addEventListener("change", function(e){
+    if(play){ startAnimation(e.target.value); }
   }); 
-
+  startAtEl.addEventListener("change", function(e){
+    pos = startAt = startAtEl.value;
+    e.target.previousElementSibling.innerHTML = "start at "+startAt;
+    console.log(e)
+    if(!play) { chImage(pos); }
+  });
+  playStopEl.addEventListener("click", function(e){
+    play = !play;
+    if(play){ startAnimation(spdSliderEl.value); } else { stopAnimation(); }
+  }); 
 }
 
 loadImgData = function(refreshRate){
@@ -23,6 +34,7 @@ loadImgData = function(refreshRate){
     if (xmlhttp.readyState==4 && xmlhttp.status==200){
       result=JSON.parse(xmlhttp.responseText);
       images = result;
+      initStartAtSlider();
       setTimeout(function(){
         loadImgData(refreshRate);
       }, refreshRate);
@@ -31,18 +43,25 @@ loadImgData = function(refreshRate){
    xmlhttp.send();
 }
 
+initStartAtSlider = function(){
+  len = images.length-1;
+  if(len>0){ startAtEl.max= len }else{ startAtEl.max =0 };
+  startAt = startAtEl.value;
+}
 
-animate = function() {
+chImage = function(position) {
+  pos = position || pos;
   len = images.length;
-  pos = pos%len;
+  if(pos >= len) { pos = startAt;};
   src = "data/"+images[pos];
   imgEl.src = src;
   pos++;
 }
 
+stopAnimation = function(){ clearInterval(intervalId); }
 startAnimation = function(interval){
   clearInterval(intervalId);
   intervalId = setInterval(function(){
-    animate();
+    chImage();
   }, interval);
 }
