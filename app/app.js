@@ -1,5 +1,8 @@
 
-var images, pos, imgEl, intervalId, startAt, startAtEl, playtStopEl, play= true;
+var images, pos
+, intervalId, startAt
+, startAtEl, playtStopEl, imgEl
+, play= true, imageLoading= false;
 
 window.onload = function(){
   images = [];
@@ -9,7 +12,7 @@ window.onload = function(){
   startAtEl = document.getElementById("startAt");
   playStopEl = document.getElementById("playStop");
 
-  loadImgData(5000);
+  loadImgData(8000);
   startAnimation(spdSliderEl.value);
 
   spdSliderEl.addEventListener("change", function(e){
@@ -52,10 +55,12 @@ initStartAtSlider = function(){
 
 chImage = function(position) {
   pos = position || pos;
+  src = images[pos]||null;
+  if(src===null || imgloading===true){ return console.log("too fast || no images : "+src)}
   len = images.length;
   if(pos >= len) { pos = startAt;};
-  src = images[pos];
   imgEl.src = src;
+  imgEl.onload = function(){ imgLoading = true;}
   pos++;
 }
 
