@@ -4,7 +4,8 @@
   <script src="app.js"></script>
   <style type="text/css">
     label {
-      display: block;
+      display: inline-block;
+      width: 28%;
     }
     input {
       width: 70%;
@@ -20,10 +21,10 @@
   <button id="playStop">PLAY/STOP</button>
 
   <label>animation speed</label>
-  <input id="spdSlider" type="range" min="5" max="500" value="150"  />
+  <input id="spdSlider" type="range" min="25" max="250" value="75"  />
 
-  <label>start at 0</label>
-  <input id="startAt" type="range" min="0" max="0" value="0"  />
+  <label>start at 0 of 0</label>
+  <input id="startAt" type="range" steps="1" min="0" max="0" value="0"  />
 
   <img id="imgVideo" src="" />
 

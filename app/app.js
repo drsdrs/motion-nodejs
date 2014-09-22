@@ -17,7 +17,7 @@ window.onload = function(){
   }); 
   startAtEl.addEventListener("change", function(e){
     pos = startAt = startAtEl.value;
-    e.target.previousElementSibling.innerHTML = "start at "+startAt;
+    e.target.previousElementSibling.innerHTML = "start at "+startAt+" of "+ images.length;
     console.log(e)
     if(!play) { chImage(pos); }
   });
@@ -46,6 +46,7 @@ loadImgData = function(refreshRate){
 initStartAtSlider = function(){
   len = images.length-1;
   if(len>0){ startAtEl.max= len }else{ startAtEl.max =0 };
+  startAtEl.previousElementSibling.innerHTML = "start at "+startAtEl.value+" of "+ images.length;
   startAt = startAtEl.value;
 }
 
@@ -53,7 +54,7 @@ chImage = function(position) {
   pos = position || pos;
   len = images.length;
   if(pos >= len) { pos = startAt;};
-  src = "data/"+images[pos];
+  src = images[pos];
   imgEl.src = src;
   pos++;
 }
