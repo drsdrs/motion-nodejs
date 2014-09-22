@@ -39,6 +39,8 @@ app.get '/rm', (req, res)->
   rm = spawn("rm", ["/home/images/", "-r"])
   rm.stderr.on 'data', (data) -> console.log 'rm stderr: '+data
   rm.on "exit", (code) ->
+    mkdir = spawn("mkdir", ["/home/images/"])
+
     if code isnt 0
       res.statusCode = 500
       console.log "rm exited with code " + code
