@@ -1,8 +1,11 @@
 
-var images, pos
-, intervalId, startAt
+var images
+, pos, intervalId, startAt
 , startAtEl, playtStopEl, imgEl
-, play= true, imageLoading= false;
+, play= true
+, imgLoading= false
+, timeLoadingImg = Date.now()
+;
 
 window.onload = function(){
   images = [];
@@ -55,12 +58,19 @@ initStartAtSlider = function(){
 
 chImage = function(position) {
   pos = position || pos;
-  src = images[pos]||null;
-  if(src===null || imgloading===true){ return console.log("too fast || no images : "+src)}
   len = images.length;
+  src = images[pos]||null;
   if(pos >= len) { pos = startAt;};
+  if(src===null || imgLoading===true){
+    return console.log("too fast || no images : "+src+" Pos:"+pos);
+  }
+  imgLoading = true;
+  timeLoadingImg = Date.now()
   imgEl.src = src;
-  imgEl.onload = function(){ imgLoading = true;}
+  imgEl.onload = function(){
+    imgLoading = false;
+    console.log("loadTime "+(Date.now()-timeLoadingImg)+"ms");
+  }
   pos++;
 }
 
