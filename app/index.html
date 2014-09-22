@@ -6,11 +6,16 @@
     label {
       display: inline-block;
       width: 28%;
+      float: left;
+      line-height:22px;
     }
     input {
       width: 70%;
       float: right;
+      line-height:20px;
+
     }
+    img {height: 80%;}
   </style>
 </head>
 <body>
@@ -19,15 +24,25 @@
   <h1>MOTION</h1>
 
   <button id="playStop">PLAY/STOP</button>
-
-  <label>animation speed</label>
-  <input id="spdSlider" type="range" min="25" max="250" value="175"  />
-
-  <label>start at 0 of 0</label>
-  <input id="startAt" type="range" steps="1" min="0" max="0" value="0"  />
-
-  <img id="imgVideo" src="" />
-
+  <div>
+    <label>animation speed</label>
+    <input id="spdSlider" type="range" min="25" max="250" value="175"  />
+  </div>
+  <div>
+    <label>start at 0</label>
+    <input id="startAt" type="range" steps="1" min="0" max="0" value="0"  />
+  </div>
+  <div>
+    <label>end at 0</label>
+    <input id="endAt" type="range" steps="1" min="0" max="0" value="0"  />
+  </div>
+  <div>
+    <label id="imgPos">pos: 0</label>
+    <input id="imgPosSlider" type="range" steps="1" min="0" max="0" value="0"  />
+  </div>
+  <div>
+    <img id="imgVideo" src="" />
+  </div>
 
 </body>
 </html>
